@@ -1,0 +1,38 @@
+##
+## This is a notes file...
+##
+
+
+
+    # TODO - Below:
+    ## - This works for getting individual prof information per managed_system {lpar}
+    # lssyscfg -m <<Managed_System>> -r prof -F \
+    # name lpar_name lpar_id min_mem desired_mem max_mem \
+    # proc_mode min_proc_units desired_proc_units \
+    # max_proc_units min_procs desired_procs max_procs lpar_proc_compat_mode | grep -iv backup
+    ##
+
+    ## Test for rolling through lr/oc together and gather lpar name/id 
+    # for lr_frame, oc_frame in sister_pairs.itertuples(index=False):
+    #     print(lr_frame)
+    #     gather_lpars_command = f"lssyscfg -m {lr_frame} -r lpar -F lpar_id name | sort -n"
+    #     lr_output = run_command(remote_host, account, pkey, gather_lpars_command)
+    #     print(oc_frame)
+    #     gather_lpars_command = f"lssyscfg -m {oc_frame} -r lpar -F lpar_id name | sort -n"
+    #     oc_output = run_command(remote_host, account, pkey, gather_lpars_command)
+    #     print(lr_output, oc_output)
+
+    ## Test for converting output per managed_system into dictionary in the format of: \
+    ## key=lpar_id value=lpar
+
+    # for lr_frame, oc_frame in sister_pairs.itertuples(index=False):
+        # print(lr_frame + " : " + oc_frame)
+        # gather_lpars_command = f"lssyscfg -m {lr_frame} -r lpar -F name lpar_id | sort -n"
+        # gather_lpars_command_lr = f"lssyscfg -m {lr_frame} -r prof -F lpar_id name min_mem desired_mem max_mem proc_mode min_proc_units desired_proc_units max_proc_units min_procs desired_procs max_procs lpar_proc_compat_mode | grep -iv backup | sort -n"
+        # gather_lpars_command_oc = f"lssyscfg -m {oc_frame} -r prof -F lpar_id name min_mem desired_mem max_mem proc_mode min_proc_units desired_proc_units max_proc_units min_procs desired_procs max_procs lpar_proc_compat_mode | grep -iv backup | sort -n"
+        # lr_output = run_command(remote_host, account, pkey, gather_lpars_command_lr)
+        # oc_output = run_command(remote_host, account, pkey, gather_lpars_command_oc)
+        # if lr_output == oc_output:
+        #     print("Matching = True", end="\n\n")
+        # else:
+        #     print("Matching = False", end="\n\n")
