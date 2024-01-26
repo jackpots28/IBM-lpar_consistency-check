@@ -28,13 +28,19 @@ Requires input of newline delimited file containing {managed_system} {managed_sy
 
 ---
 
-- Where {managed_system} is the name provided from the HMC / is the relative name used in commands such as lssyscfg -m ...
+- {managed_system} is the name provided from the HMC / is the relative name used in commands such as lssyscfg -m ...
 and  {managed_system_description} is the description provided on the systems information page
+    - These values should be stored in {managed_systems.log}
 
 - This description value will need to be consistent across both systems in the "pair" to the checked. The logic in the code utilizes the description to know which systems are "pairs"
 
 ---
 
 <p>
-All testing was down between IBM POWER 8-10 Systems and vHMC's
+All testing was done between IBM POWER 8-10 Systems and vHMC's
 </p>
+
+
+## Notes
+- Included in the repo is a requirements.txt, Paramiko is one of the required packages and thus a user with passwordless entry to HMC's to retrieve information is required.
+- The Flask code included is for testing future functionality of displaying results to a temporary webpage
