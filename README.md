@@ -22,6 +22,12 @@ Given lpar_a on managed_system_a and lpar_b on managed_system_b
 
 ## Input
 
+The following code snippet can be used to generate the input file:
+
+```
+for i in $(lssyscfg -r sys -F name); do lssyscfg -m $i -r lpar -F name | xargs -n1 -I{} echo {} `lssyscfg -m $i -r sys -F description`; done
+```
+
 <p>
 Requires input of newline delimited file containing {managed_system} {managed_system_description}
 </p>
