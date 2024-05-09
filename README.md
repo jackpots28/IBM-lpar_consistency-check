@@ -4,6 +4,8 @@
 
 .) cd /<PATH>/IBM-lpar_consistency-check
 
+.) mkdir .ssh
+
 # Edit the hmc.list and the .ssh/id_rsa & .ssh/id_rsa.pub to be what you need - key files need to be able 
 # to reach the required hmc's
 
