@@ -24,6 +24,6 @@ Install using Podman
   #--(User with ssh passwordless access to HMC's in list)
   cp -r /home/${USER}/.ssh /<PATH>/IBM-lpar_consistency-check
 
-  podman build --build-arg USERNAME=${USER} -t localhost/<IMAGE_NAME>:<TAG> -f docker file
-  podman run -v /tmp/<OUTPUTS>:/home/<USERNAME>/IBM-lpar_consistency_output localhost/<IMAGE_NAME>:<TAG>
+  podman build --build-arg USERNAME=${USER} -t localhost/<IMAGE_NAME>:<TAG> -f dockerfile
+  podman run -v /tmp/<OUTPUTS>:/home/${USER}/IBM-lpar_consistency_output localhost/<IMAGE_NAME>:<TAG>
 ```
