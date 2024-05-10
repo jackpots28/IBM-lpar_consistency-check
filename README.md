@@ -1,14 +1,29 @@
-# podman is required to be on the system
+[![Licence](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE)
 
-.) sudo su - 
+![Podman](https://a11ybadges.com/badge?logo=podman)
 
-.) cd /<PATH>/IBM-lpar_consistency-check
+# IBM-lpar_consistency-check
 
-# Edit the hmc.list and the .ssh/id_rsa & .ssh/id_rsa.pub to be what you need - key files need to be able 
-# to reach the required hmc's
-# Ensure that the output volume mounted to the container is writable by all (0777 permissions)
-# e.g. cp -r /home/<USERNAME>/.ssh /<PATH>/IBM-lpar_consistency-check/.ssh
+Consistency check across multiple IBM Power Frame LPAR's using Python and Podman/Docker
 
-.) podman build --build-arg USERNAME=<USERNAME> -t localhost/<IMAGE_NAME>:<TAG> -f docker file
+- Outputs CSV files to a specified directory with specific "resource differences" between two "Sister" IBM Power Frames
+## Installation
 
-.) podman run -v /tmp/<make_a_dir>:/home/<USERNAME>/IBM-lpar_consistency_output localhost/<IMAGE_NAME>:<TAG>
+Install using Podman
+
+```bash
+  git clone https://github.com/jackpots28/IBM-lpar_consistency-check.git
+  cd IBM-lpar_consistency-check
+  
+  #--(Newline list of FQDN HMC's)
+  vi hmc.list
+
+  mkdir /tmp/<OUTPUTS>
+  chmod 777 /tmp/<OUTPUTS>
+
+  #--(User with ssh passwordless access to HMC's in list)
+  cp -r /home/${USER}/.ssh /<PATH>/IBM-lpar_consistency-check
+
+  podman build --build-arg USERNAME=${USER} -t localhost/<IMAGE_NAME>:<TAG> -f docker file
+  podman run -v /tmp/<OUTPUTS>:/home/<USERNAME>/IBM-lpar_consistency_output localhost/<IMAGE_NAME>:<TAG>
+```
