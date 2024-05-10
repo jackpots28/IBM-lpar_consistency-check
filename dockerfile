@@ -8,15 +8,16 @@ ARG OUTPUT_DIR_NAME="/home/${USERNAME}/IBM-lpar_consistency_output"
 ARG SSH_DIR="/home/${USERNAME}/.ssh"
 ARG LIST_DIR="/home/${USERNAME}/lists"
 
-# WORKDIR ${WORKING_DIR_NAME}
-
 RUN /usr/sbin/groupadd --gid $USER_UID $USERNAME \
     && useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME
 
-RUN mkdir -p "${OUTPUT_DIR_NAME}" && \
-    mkdir -p "${SSH_DIR}" && \
-    mkdir -p "${LIST_DIR}" && \
-    chmod 700 "${SSH_DIR}"
+RUN mkdir -p "${WORKING_DIR_NAME}" && \
+    mkdir  "${OUTPUT_DIR_NAME}" && \
+    mkdir  "${SSH_DIR}" && \
+    mkdir  "${LIST_DIR}" && \
+    chmod 700 "${SSH_DIR}" && \
+    chmod -R 777 "${OUTPUT_DIR_NAME}" && \
+    chown -R ${USERNAME}:${USER_GID} "${OUTPUT_DIR_NAME}"
 
 # Install any possibly needed compile time packages
 RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm && \
@@ -32,11 +33,6 @@ RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.n
                     platform-python-devel \
                     less \
                     lsof \
-                    iperf \ 
-                    nmap \
-                    nmap-ncat \
-                    unzip \
-                    zip \
                     python3-pip \
                   --exclude container-selinux && \
     dnf clean all && \
@@ -48,10 +44,8 @@ COPY ./.ssh ${SSH_DIR}
 # Install any pip required packageds from REQ
 RUN pip install -r ${WORKING_DIR_NAME}/requirements.txt
 
-RUN chmod -R 777 ${WORKING_DIR_NAME} && \
-    chown -R ${USERNAME}:${USER_GID} ${WORKING_DIR_NAME} && \
-    chmod -R 777 ${OUTPUT_DIR_NAME} && \
-    chown -R ${USERNAME}:${USER_GID} ${SSH_DIR}
+RUN chown -R "${USERNAME}":"${USER_GID}" "/home/${USERNAME}" && \
+    ls -lart "/home/${USERNAME}"
 
 EXPOSE 22
 
